@@ -1,22 +1,40 @@
-import * as React from 'react'
-import Head from 'next/head'
+import PropTypes from 'prop-types';
 
-type Props = {
-  title?: string
-}
+import Head from 'next/head';
+import React from 'react';
+import Header from './Header';
 
-const Layout: React.FunctionComponent<Props> = ({
-  children,
-  title = 'This is the default title',
-}) => (
+const Layout: React.FC = ({ children }) => (
   <div>
+    <Header />
     <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <title>Create Next App</title>
+      <link rel="icon" href="/favicon.ico" />
     </Head>
-    {children}
-  </div>
-)
+    <main>
+      {children}
+    </main>
 
-export default Layout
+    <style jsx global>
+      {`
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    `}
+    </style>
+  </div>
+);
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Layout;
