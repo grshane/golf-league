@@ -1,17 +1,20 @@
-import PropTypes from 'prop-types';
-
 import Head from 'next/head';
 import React from 'react';
 import Header from './Header';
 
-const Layout: React.FC = ({ children }) => (
+type LayoutProps ={
+  title: string;
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ title, children }) => (
   <div>
     <Header />
     <Head>
-      <title>Create Next App</title>
+      <title>{title}</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <main>
+    <main className="py-4 px-8">
       {children}
     </main>
 
@@ -32,9 +35,5 @@ const Layout: React.FC = ({ children }) => (
     </style>
   </div>
 );
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default Layout;

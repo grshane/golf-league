@@ -3,3 +3,12 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
+
+@media print {
+    .match:nth-of-type(even) {
+        break-after: page;
+    }
+    #header {
+        display: none;
+    }
+}

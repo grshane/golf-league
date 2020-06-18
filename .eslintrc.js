@@ -3,7 +3,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   settings: {
-    'import/extensions': ['.js','.jsx',".ts",".tsx"],
+    'import/extensions': ['.js','.jsx',".ts",".tsx", ".d.ts"],
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
@@ -11,7 +11,7 @@ module.exports = {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
       },
-      typescript: {},
+      // typescript: {},
     },
   },
   rules: {
@@ -30,5 +30,16 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': 0,
+    'jsx-a11y/anchor-is-valid': ['error', {
+      'components': ['Link'],
+    }],
   },
+  'overrides': [
+    {
+      "files": ["**/*.tsx", '**/*.ts'],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ]
 };

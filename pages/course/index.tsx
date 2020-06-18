@@ -1,7 +1,5 @@
 import React from 'react';
-import { number } from 'prop-types';
-import tw from 'tailwind.macro';
-import styled from '@emotion/styled';
+import Layout from '../../components/Layout';
 import { data } from '../../lib/DATA';
 
 interface Tee {
@@ -13,7 +11,7 @@ interface Tee {
   b9length: number;
   readonly id: number;
   readonly courseId: number;
-  holes: Hole[];
+  holes: Array<Hole>;
 }
 
 type iTees = Array<Tee>
@@ -32,30 +30,49 @@ interface Hole {
 
 const Course: React.FC = () => {
   const { name, tees }: {name: string; tees: iTees} = data;
-  const renderTees = tees.map;
-  const reducer = (accumulator, item) => accumulator + item;
+  // const renderTees = tees.map;
+  const reducer = (accumulator: number, item: number): number => accumulator + item;
   return (
-    <div>
+    <Layout title={`${name} Course`}>
       <h2>{name}</h2>
       {tees.map((tee: Tee) => {
         const {
-          name: teeName, par, rating, holes, length, f9length, b9length,
+          name: teeName, par, holes, length, f9length, b9length,
         } = tee;
         const hdisplay = holes.map((hole: Hole) => {
           const {
             number: holeNumber, handicap: holeHandicap, par: holePar, length: holeLength,
           } = hole;
           return (
-            <Hole key={holeNumber}>
-              <Items>{holeNumber}</Items>
-              <Items>{holePar}</Items>
-              <Items>{holeHandicap}</Items>
-              <Items>{holeLength}</Items>
-              <Items>{'\b'}</Items>
-            </Hole>
+            <div key={holeNumber} className="bg-green-700">
+              <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6 odd:bg-green-300 even:text-white"
+              >
+                {holeNumber}
+              </div>
+              <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6 odd:bg-green-300 even:text-white"
+              >
+                {holePar}
+              </div>
+              <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6 odd:bg-green-300 even:text-white"
+              >
+                {holeHandicap}
+              </div>
+              <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6 odd:bg-green-300 even:text-white"
+              >
+                {holeLength}
+              </div>
+              <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6 bg-white"
+              >
+                {'\b'}
+              </div>
+            </div>
           );
         });
-        console.log(holes);
         const pars = holes.map((hole: Hole) => (hole.par));
         const f9par = pars.slice(0, 9).reduce(reducer, 0);
         const b9par = pars.slice(9).reduce(reducer, 0);
@@ -67,55 +84,101 @@ const Course: React.FC = () => {
               Par:
               {par}
             </div>
-
             <div>
               Length:
               {length}
             </div>
-            <Grid>
-              <Hole>
-                <Items>Hole</Items>
-                <Items>Par</Items>
-                <Items>Handiap</Items>
-                <Items>Length</Items>
-                <Items>Strokes</Items>
-              </Hole>
+            <div className="flex">
+              <div className="flex flex-col bg-green-700 text-white font-bold">
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  Hole
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  Par
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  Handiap
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  Length
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  Strokes
+                </div>
+              </div>
 
               {hdisplay.slice(0, 9)}
-              <Hole>
-                <Items>OUT</Items>
-                <Items>{f9par}</Items>
-                <Items>{'\b'}</Items>
-                <Items>{f9length}</Items>
-                <Items>{'\b'}</Items>
-              </Hole>
+              <div className="flex flex-col bg-green-700 text-white font-bold">
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  OUT
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {f9par}
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {'\b'}
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {f9length}
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {'\b'}
+                </div>
+              </div>
               {hdisplay.slice(9)}
-              <Hole>
-                <Items>IN</Items>
-                <Items>{b9par}</Items>
-                <Items>{'\b'}</Items>
-                <Items>{b9length}</Items>
-                <Items>{'\b'}</Items>
-              </Hole>
-            </Grid>
+              <div className="flex flex-col bg-green-700 font-bold text-white">
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  IN
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {b9par}
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {'\b'}
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {b9length}
+                </div>
+                <div className="border-2 border-orange-500 border-solid justify-center text-center
+  px-2 py-6"
+                >
+                  {'\b'}
+                </div>
+              </div>
+            </div>
 
           </div>
         );
       })}
-    </div>
+    </Layout>
   );
 };
-
-const Hole = styled.div`
-  ${tw`flex flex-col`}
-`;
-
-const Grid = styled.div`
-  ${tw`flex`}
-`;
-
-const Items = styled.div`
-  ${tw`border-2 border-orange-500 border-solid justify-center text-center 
-  px-2 py-6 bg-green-400 odd:bg-green-200`}
-`;
 export default Course;
